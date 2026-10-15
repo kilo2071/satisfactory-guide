@@ -6,6 +6,8 @@ It is a static site: upload these files to any web host (GitHub Pages works) and
 
 Checklist progress and your starting area are saved on the device you use.
 
+Updating: upload the changed files and change the `CACHE` name at the top of `sw.js` (for example `v7` to `v8`). An installed copy then fetches the new version when it is opened or comes back to the foreground, and reloads itself once. Only a new icon or app name needs the Home Screen app to be removed and added again.
+
 ## Files
 
 - `index.html`, `app.js`: the guide
