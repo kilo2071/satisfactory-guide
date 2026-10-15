@@ -16,6 +16,8 @@ Checklist progress and your starting area are saved on the device you use.
 
 Sources are listed inside the guide: the Sources button in the top bar shows them for each page. Game data: SatisfactoryTools (greeny), Satisfactory Wiki and SteamDB patch notes.
 
+App icon: the official Satisfactory icon by Coffee Stain Studios (via SteamGridDB), set on Skeuo 2012 dark linen for the Home Screen.
+
 Impact Label typeface by Tension Type (licence in `ds/fonts/ImpactLabel-Licence.txt`). Nothing You Could Do typeface by Kimberly Geswein, SIL Open Font License (`ds/fonts/NothingYouCouldDo-OFL.txt`). React by Meta, MIT License.
 
 A fan-made guide. Not affiliated with or endorsed by Coffee Stain Studios. Satisfactory is a trademark of Coffee Stain Studios.
