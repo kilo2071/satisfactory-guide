@@ -97,7 +97,7 @@ body { display: flex; flex-direction: column; margin: 0; background: transparent
 .toolbar { margin-bottom: 14px; }
 
 /* ---- phase grid ---- */
-.phase-grid { display: grid; gap: var(--gap); align-items: start; grid-template-columns: minmax(250px, 0.62fr) minmax(0, 0.9fr) minmax(0, 1.3fr); }
+.phase-grid { display: grid; gap: var(--gap); align-items: start; grid-template-columns: minmax(250px, 0.62fr) minmax(0, 1.3fr) minmax(0, 0.9fr); }
 .mid { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 .side {
   min-width: 0; border-radius: 8px; padding: 14px 12px 4px;
@@ -184,11 +184,16 @@ body { display: flex; flex-direction: column; margin: 0; background: transparent
 .sheet .sk-notepad__body > .snotes { list-style: none; margin: 0 0 var(--sk-rule); padding: 0; }
 .snotes li { display: grid; grid-template-columns: 46px minmax(0, 1fr); column-gap: 8px; align-items: start; font-size: 13.5px; color: var(--sk-ink-soft); }
 .snotes .sk-label { justify-self: start; transform: scale(0.82); transform-origin: left center; margin-top: 1px; }
-.sheet .sk-notepad__body > .sheet__plans { margin: 0 0 var(--sk-rule); display: flex; flex-wrap: wrap; column-gap: 18px; }
-.sheet__plans .link, .sheet__next .link { line-height: var(--sk-rule); font-size: 14px; }
-.sheet .sk-notepad__body > .sheet__next { margin: 0; }
-.sheet__sticky { display: flex; justify-content: flex-end; margin-top: var(--sk-rule); }
-.sheet__sticky .sk-sticky { width: 250px; }
+.sheet__foot { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.sheet__links { min-width: 0; flex: 1 1 auto; }
+.sheet .sheet__link { margin: 0; }
+.sheet__link .link { line-height: var(--sk-rule); font-size: 14px; text-align: left; }
+.sheet__next { margin-top: var(--sk-rule) !important; }
+.sheet__link + .sheet__next { margin-top: var(--sk-rule) !important; }
+.sheet__links > .sheet__next:first-child { margin-top: 0 !important; }
+.sheet__sticky { flex: 0 0 auto; width: 230px; margin: -8px -6px 0 0; }
+.sheet__sticky .sk-sticky { width: 100%; }
+.sheet__sticky .sticky-p { font-size: 15px; line-height: 1.35; }
 .glance-block .linen-head { margin-bottom: 8px; }
 .glance.sk-paper { padding: 10px 18px 12px !important; }
 
@@ -330,12 +335,12 @@ body { display: flex; flex-direction: column; margin: 0; background: transparent
 .drawer-scrim { position: fixed; top: 0; left: 0; right: 0; bottom: calc(-160px - var(--vp-gap, 0px)); z-index: 60; background: rgba(20, 22, 26, 0.38); }
 .drawer {
   position: fixed; z-index: 61; left: 0; right: 0; top: 0;
-  max-height: min(92vh, 900px); display: flex; flex-direction: column; outline: none;
+  max-height: calc(100vh - 12px); display: flex; flex-direction: column; outline: none;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 .drawer__linen { display: flex; flex-direction: column; min-height: 0; max-height: inherit; color: #e9ebee; }
 .drawer__inner {
-  overflow: auto; min-height: 0;
+  overflow: visible; min-height: 0;
   padding-top: calc(max(16px, env(safe-area-inset-top, 0px)) + var(--top-extra)); padding-bottom: 20px;
   padding-left: max(var(--gutter), env(safe-area-inset-left, 0px), calc((100% - var(--wrap)) / 2 + var(--gutter)));
   padding-right: max(var(--gutter), env(safe-area-inset-right, 0px), calc((100% - var(--wrap)) / 2 + var(--gutter)));
@@ -360,10 +365,16 @@ body { display: flex; flex-direction: column; margin: 0; background: transparent
 .seg-field__label { font: 700 13px/1.3 var(--font-ui); color: #e9ebee; text-shadow: var(--sk-emboss-dark); }
 .picker { align-items: flex-start; }
 .picker .sk-dropdown__button { height: 32px; max-width: 100%; }
-@media (min-height: 760px) {
-  /* let picker menus hang below the drawer instead of being clipped by it */
-  .drawer__inner { overflow: visible; }
-}
+.targets__when { margin: -2px 0 10px; font: 400 12.5px/1.4 var(--font-ui); color: var(--sk-muted); }
+/* the drawer scrolls only when its content is taller than the screen (set from app.js) */
+.drawer.is-scroll .drawer__inner { overflow: auto; -webkit-overflow-scrolling: touch; }
+/* long menus scroll inside themselves */
+.sk-dropdown .sk-popover__body { max-height: min(60vh, 520px); overflow-y: auto; }
+/* pickers fill their column, like the text fields under them */
+.picker .sk-dropdown { display: block; width: 100%; }
+.picker .sk-dropdown__button { width: 100%; display: flex; align-items: center; justify-content: space-between; text-align: left; }
+.size-ctl { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.size-ctl .sk-segmented button { min-width: 58px; }
 .drawer .sk-popover { color: var(--sk-ink); }
 @media (prefers-reduced-motion: no-preference) {
   .drawer { animation: drawer-in 0.26s cubic-bezier(0.2, 0.8, 0.2, 1); }
@@ -378,28 +389,38 @@ body { display: flex; flex-direction: column; margin: 0; background: transparent
   .side { max-height: calc(100vh - 254px - var(--top-pad)); overflow: auto; }
 }
 
+/* ---- narrower screens (and larger display sizes): keep every folder tab in view ---- */
+@media (max-width: 1259px) {
+  .topbar__count { display: none; }
+  .topbar__tools { gap: 6px; }
+  .topbar__tabs .sk-track__step { padding-left: 16px; padding-right: 16px; }
+}
+
+/* tools above the tabs once both no longer fit on one row */
+@media (max-width: 1010px) {
+  .topbar { flex-wrap: wrap; }
+  .topbar__tools { order: -1; width: 100%; justify-content: flex-end; padding-bottom: 4px; }
+}
+
 /* ---- iPad portrait and small laptops ---- */
 @media (max-width: 1099px) {
   :root { --gutter: 20px; --gap: 16px; }
-  .phase-grid { grid-template-columns: minmax(220px, 0.72fr) minmax(0, 0.88fr) minmax(0, 1.3fr); }
+  .phase-grid { grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.3fr) minmax(0, 0.88fr); }
   .mast .sk-title { font-size: 34px; }
   .mast .sk-subtitle { font-size: 15px; }
   .detail-cols, .overview-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
-  .topbar__count { display: none; }
-  .topbar__tools { gap: 6px; }
-  .topbar__tabs .sk-track__step { padding-left: 19px; padding-right: 19px; }
   .drawer__grid { grid-template-columns: minmax(0, 1fr); }
+  .sheet__sticky { width: 200px; }
 }
 @media (max-width: 900px) {
-  .phase-grid { grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr); }
-  .phase-grid .detail { grid-column: 1 / -1; }
+  .phase-grid { grid-template-columns: minmax(200px, 0.75fr) minmax(0, 1.25fr); }
+  .phase-grid .aside { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--gap); }
   .setup-grid { grid-template-columns: minmax(0, 1fr); }
-  .topbar { flex-wrap: wrap; }
-  .topbar__tools { order: -1; width: 100%; justify-content: flex-end; padding-bottom: 4px; }
 }
 @media (max-width: 639px) {
   :root { --gutter: 16px; }
   .phase-grid { grid-template-columns: minmax(0, 1fr); }
+  .phase-grid .aside { grid-template-columns: minmax(0, 1fr); }
   .area__grid, .planner-cols, .tool__fields { grid-template-columns: minmax(0, 1fr); }
   .mast .sk-title { font-size: 30px; }
   .mast .sk-masthead__number { font-size: 64px; }
