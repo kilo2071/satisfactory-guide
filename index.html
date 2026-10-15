@@ -29,6 +29,9 @@
   --gap: 18px;
   --gutter: 24px;
   --top-h: 52px;
+  /* Home Screen app: iPadOS blurs a band under the status bar, so the top bar moves below it */
+  --top-extra: 0px;
+  --top-pad: calc(max(8px, env(safe-area-inset-top, 0px)) + var(--top-extra));
   /* folder-tab tints: the system's four phase colours plus peach and lavender */
   --tab-yellow: var(--sk-phase-discover, #F6D365);
   --tab-peach: #F7B98A;
@@ -38,6 +41,8 @@
   --tab-green: var(--sk-phase-deliver, #B9E25A);
   color-scheme: light;
 }
+html.is-standalone { --top-extra: 28px; }
+@media (display-mode: standalone) { :root { --top-extra: 28px; } }
 html, body { height: 100%; }
 body { display: flex; flex-direction: column; margin: 0; background: var(--sk-linen-display, #ecEAE4); color: var(--sk-ink); font-family: var(--font-ui); -webkit-text-size-adjust: 100%; }
 #root { flex: 1 0 auto; display: flex; flex-direction: column; }
@@ -51,7 +56,7 @@ body { display: flex; flex-direction: column; margin: 0; background: var(--sk-li
 /* ---- top bar: binder tabs on the left, controls on the right ---- */
 .topbar {
   display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;
-  min-height: var(--top-h); padding-top: max(8px, env(safe-area-inset-top, 0px));
+  min-height: var(--top-h); padding-top: var(--top-pad);
   padding-left: max(var(--gutter), env(safe-area-inset-left, 0px), calc((100% - var(--wrap)) / 2 + var(--gutter)));
   padding-right: max(var(--gutter), env(safe-area-inset-right, 0px), calc((100% - var(--wrap)) / 2 + var(--gutter)));
   position: relative; z-index: 20;
@@ -270,7 +275,7 @@ body { display: flex; flex-direction: column; margin: 0; background: var(--sk-li
 .drawer__linen { display: flex; flex-direction: column; min-height: 0; max-height: inherit; color: #e9ebee; }
 .drawer__inner {
   overflow: auto; min-height: 0;
-  padding-top: max(16px, env(safe-area-inset-top, 0px)); padding-bottom: 20px;
+  padding-top: calc(max(16px, env(safe-area-inset-top, 0px)) + var(--top-extra)); padding-bottom: 20px;
   padding-left: max(var(--gutter), env(safe-area-inset-left, 0px), calc((100% - var(--wrap)) / 2 + var(--gutter)));
   padding-right: max(var(--gutter), env(safe-area-inset-right, 0px), calc((100% - var(--wrap)) / 2 + var(--gutter)));
 }
@@ -305,8 +310,8 @@ body { display: flex; flex-direction: column; margin: 0; background: var(--sk-li
 
 /* ---- tall wide screens (iPad Pro landscape, desktop): fit one screen ---- */
 @media (min-width: 901px) and (min-height: 700px) {
-  .detail.sk-paper { max-height: calc(100vh - 262px); overflow: auto; }
-  .side { max-height: calc(100vh - 262px); overflow: auto; }
+  .detail.sk-paper { max-height: calc(100vh - 254px - var(--top-pad)); overflow: auto; }
+  .side { max-height: calc(100vh - 254px - var(--top-pad)); overflow: auto; }
 }
 
 /* ---- iPad portrait and small laptops ---- */

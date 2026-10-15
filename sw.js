@@ -1,6 +1,6 @@
 // Offline support: keep a copy of every file, serve it straight away and
 // refresh it in the background, so a new upload shows up on the next launch.
-const CACHE = "phase-guide-v3";
+const CACHE = "phase-guide-v4";
 const FILES = [
   "./", "./index.html", "./app.js", "./manifest.webmanifest",
   "./ds/tokens.css", "./ds/components/bundle.css", "./ds/components/bundle.js",
