@@ -87,7 +87,7 @@ body { display: flex; flex-direction: column; margin: 0; background: transparent
 
 /* ---- screens ---- */
 .screen {
-  flex: 1 0 auto; padding-block: 14px 10px; position: relative; z-index: 1;
+  flex: 1 0 auto; padding-block: 14px 10px; position: relative; z-index: 15; /* above the masthead, so popovers can overlap it */
   padding-left: max(var(--gutter), env(safe-area-inset-left, 0px), calc((100% - var(--wrap)) / 2 + var(--gutter)));
   padding-right: max(var(--gutter), env(safe-area-inset-right, 0px), calc((100% - var(--wrap)) / 2 + var(--gutter)));
 }
@@ -97,7 +97,7 @@ body { display: flex; flex-direction: column; margin: 0; background: transparent
 .toolbar { margin-bottom: 14px; }
 
 /* ---- phase grid ---- */
-.phase-grid { display: grid; gap: var(--gap); align-items: start; grid-template-columns: minmax(250px, 0.62fr) minmax(0, 1fr) minmax(0, 1.12fr); }
+.phase-grid { display: grid; gap: var(--gap); align-items: start; grid-template-columns: minmax(250px, 0.62fr) minmax(0, 0.9fr) minmax(0, 1.3fr); }
 .mid { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 .side {
   min-width: 0; border-radius: 8px; padding: 14px 12px 4px;
@@ -140,6 +140,58 @@ body { display: flex; flex-direction: column; margin: 0; background: transparent
 .mnote__line.is-selected .mnote__text { font-weight: 700; background: linear-gradient(transparent 22%, var(--sk-lime-wash) 22%, var(--sk-lime-wash) 92%, transparent 92%); }
 .mnote__line.is-done .mnote__text { color: var(--sk-muted); text-decoration: line-through; text-decoration-thickness: 1.5px; text-decoration-color: var(--sk-ink-soft); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* step numbers sit in the red margin of the sidebar list */
+.mnote__btn { position: relative; }
+.mnote__num { position: absolute; left: calc(-1 * (var(--sk-notepad-margin) + 12px)); width: var(--sk-notepad-margin); text-align: center; font: 400 12px/var(--sk-rule) var(--font-ui); color: var(--sk-muted); font-variant-numeric: tabular-nums; }
+.mnote__line.is-selected .mnote__num { color: var(--sk-blue-ink); font-weight: 700; }
+
+/* ---- the open step: a notepad page with a to-do list ---- */
+.sheet.sk-notepad { --sk-notepad-head: calc(var(--sk-rule) * 4); padding-bottom: var(--sk-rule); min-width: 0; }
+.sheet .sk-notepad__title { height: var(--sk-notepad-head); padding-top: calc(var(--sk-rule) + 5px); }
+.sheet__kicker { display: block; font: 700 11px/var(--sk-rule) var(--font-ui); letter-spacing: 2.5px; text-transform: uppercase; color: var(--sk-blue-ink); text-shadow: var(--sk-emboss-light); }
+.sheet__title { display: block; font: 200 26px/var(--sk-rule) var(--font-display); color: var(--sk-ink); }
+.sheet .sk-notepad__body > .sheet__intro { margin: 0 0 var(--sk-rule); color: var(--sk-ink-soft); }
+.sheet .sk-notepad__body > .tasks { list-style: none; margin: 0 0 var(--sk-rule); padding: 0; }
+.task { position: relative; color: var(--sk-ink); }
+.task__hit {
+  position: absolute; top: 0; bottom: 0; left: calc(-1 * (var(--sk-notepad-margin) + 16px)); right: -10px;
+  appearance: none; border: 0; background: none; padding: 0; margin: 0; cursor: pointer; border-radius: 3px;
+}
+.task__hit:focus-visible { outline: 2px solid var(--sk-blue-hi); outline-offset: -2px; }
+.task__hit:active { background: rgba(43, 90, 165, 0.06); }
+.task__box {
+  position: absolute; top: 5px; width: 12px; height: 12px; pointer-events: none;
+  left: calc(-1 * (var(--sk-notepad-margin) + 16px) + (var(--sk-notepad-margin) - 14px) / 2);
+  border: 1.5px solid #7d93b3; border-radius: 2px; background: rgba(255, 255, 255, 0.7);
+}
+.task.is-done .task__box::after {
+  content: ""; position: absolute; left: 3px; top: -4px; width: 5px; height: 11px;
+  border: solid var(--sk-blue); border-width: 0 2.5px 2.5px 0; transform: rotate(40deg);
+}
+.task__text { position: relative; pointer-events: none; }
+.task.is-done .task__text { color: var(--sk-muted); text-decoration: line-through; text-decoration-thickness: 1.5px; text-decoration-color: var(--sk-ink-soft); }
+.task__tree { color: var(--sk-muted); font-style: italic; }
+.task .sk-popover-anchor { pointer-events: auto; }
+.task .sk-popover { color: var(--sk-ink); font-weight: 400; text-align: left; }
+.mlink {
+  appearance: none; border: 0; background: none; padding: 0; margin: 0; cursor: pointer;
+  font: inherit; font-weight: 700; color: var(--sk-blue-ink);
+  text-decoration: underline; text-decoration-color: rgba(43, 90, 165, 0.35); text-underline-offset: 3px;
+}
+.task.is-done .mlink { color: var(--sk-muted); text-decoration: line-through; }
+.mlink:focus-visible { outline: 2px solid var(--sk-blue-hi); outline-offset: 2px; border-radius: 2px; }
+.mi-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; margin: 8px 0 4px; }
+.sheet .sk-notepad__body > .snotes { list-style: none; margin: 0 0 var(--sk-rule); padding: 0; }
+.snotes li { display: grid; grid-template-columns: 46px minmax(0, 1fr); column-gap: 8px; align-items: start; font-size: 13.5px; color: var(--sk-ink-soft); }
+.snotes .sk-label { justify-self: start; transform: scale(0.82); transform-origin: left center; margin-top: 1px; }
+.sheet .sk-notepad__body > .sheet__plans { margin: 0 0 var(--sk-rule); display: flex; flex-wrap: wrap; column-gap: 18px; }
+.sheet__plans .link, .sheet__next .link { line-height: var(--sk-rule); font-size: 14px; }
+.sheet .sk-notepad__body > .sheet__next { margin: 0; }
+.sheet__sticky { display: flex; justify-content: flex-end; margin-top: var(--sk-rule); }
+.sheet__sticky .sk-sticky { width: 250px; }
+.glance-block .linen-head { margin-bottom: 8px; }
+.glance.sk-paper { padding: 10px 18px 12px !important; }
+
 /* the Done tapes sit at the end of a tab's tape row */
 .tapes__end { margin-left: auto; display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 .done-btn { flex: none; }
@@ -329,7 +381,7 @@ body { display: flex; flex-direction: column; margin: 0; background: transparent
 /* ---- iPad portrait and small laptops ---- */
 @media (max-width: 1099px) {
   :root { --gutter: 20px; --gap: 16px; }
-  .phase-grid { grid-template-columns: minmax(230px, 0.75fr) minmax(0, 1fr) minmax(0, 1fr); }
+  .phase-grid { grid-template-columns: minmax(220px, 0.72fr) minmax(0, 0.88fr) minmax(0, 1.3fr); }
   .mast .sk-title { font-size: 34px; }
   .mast .sk-subtitle { font-size: 15px; }
   .detail-cols, .overview-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
