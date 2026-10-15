@@ -4,7 +4,7 @@
 // Offline or on a slow connection: the kept copy is used.
 // Change CACHE whenever you upload new files: open apps then fetch the new
 // version and reload themselves the next time they come to the foreground.
-const CACHE = "phase-guide-v12";
+const CACHE = "phase-guide-v14";
 const FILES = [
   "./", "./index.html", "./app.js", "./manifest.webmanifest",
   "./ds/tokens.css", "./ds/components/bundle.css", "./ds/components/bundle.js",

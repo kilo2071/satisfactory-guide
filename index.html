@@ -187,10 +187,27 @@ body { display: flex; flex-direction: column; margin: 0; background: transparent
 .sheet__foot { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
 .sheet__links { min-width: 0; flex: 1 1 auto; }
 .sheet .sheet__link { margin: 0; }
-.sheet__link .link { line-height: var(--sk-rule); font-size: 14px; text-align: left; }
+.sheet__link .link { line-height: var(--sk-rule); font-size: 14px; text-align: left; text-wrap: balance; }
 .sheet__next { margin-top: var(--sk-rule) !important; }
 .sheet__link + .sheet__next { margin-top: var(--sk-rule) !important; }
 .sheet__links > .sheet__next:first-child { margin-top: 0 !important; }
+/* a finished step: green Done tape and a softly glowing lime rule under the way on */
+.sheet__next .next-tape { transform: scale(0.82); transform-origin: left center; margin-right: -6px; vertical-align: 1px; }
+.sheet__next.is-ready .link, .sheet__fin { position: relative; }
+.sheet__next.is-ready .link::after, .sheet__fin::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; border-radius: 2px;
+  background: var(--sk-lime); box-shadow: 0 0 6px 1px var(--sk-lime-glow), 0 0 14px 3px var(--sk-lime-glow);
+}
+.sheet__fin { font: 700 14px/var(--sk-rule) var(--font-ui); color: var(--sk-ink); text-wrap: balance; }
+@media (prefers-reduced-motion: no-preference) {
+  .sheet__next.is-ready .link::after, .sheet__fin::after { animation: next-glow 1.6s ease-in-out infinite alternate; }
+  .sheet__next.is-ready .next-tape { animation: tape-in 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.3); }
+  @keyframes next-glow {
+    from { opacity: 0.6; box-shadow: 0 0 3px 0 var(--sk-lime-glow); }
+    to { opacity: 1; box-shadow: 0 0 8px 2px var(--sk-lime-glow), 0 0 18px 5px var(--sk-lime-glow); }
+  }
+  @keyframes tape-in { from { transform: scale(1.3) rotate(-6deg); opacity: 0; } to { transform: scale(0.82); opacity: 1; } }
+}
 .sheet__sticky { flex: 0 0 auto; width: 230px; margin: -8px -6px 0 0; }
 .sheet__sticky .sk-sticky { width: 100%; }
 .sheet__sticky .sticky-p { font-size: 15px; line-height: 1.35; }
