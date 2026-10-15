@@ -47,6 +47,11 @@ html, body { height: 100%; }
 /* The linen sits on <html> too (class added by app.js), so it also fills any strip iPadOS shows
    outside the layout viewport in the Home Screen app. */
 html { background-color: var(--sk-linen-display, #ECEAE4); }
+/* What iPadOS shows past the page uses this colour: dim it with the Toolkit's shade */
+html.sk-linen.drawer-open { background-color: #9A9897; }
+/* Home Screen app laid out short: stretch the page over the missing strip (--vp-gap is measured in app.js) */
+html.has-vp-gap { height: calc(100% + var(--vp-gap, 0px)); }
+html.has-vp-gap, html.has-vp-gap body { overflow: hidden; }
 body { display: flex; flex-direction: column; margin: 0; background: transparent; color: var(--sk-ink); font-family: var(--font-ui); -webkit-text-size-adjust: 100%; }
 #root { flex: 1 0 auto; display: flex; flex-direction: column; }
 .app { flex: 1 0 auto; display: flex; flex-direction: column; }
@@ -262,6 +267,7 @@ body { display: flex; flex-direction: column; margin: 0; background: transparent
 .sk-popover .lead { font-size: 14px; }
 .pop-p { margin: 0 0 8px; font: 400 13px/1.45 var(--font-ui); color: var(--sk-ink-soft); }
 .pop-p:last-child { margin-bottom: 0; }
+.pop-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
 /* the red Estimate tape is a button that opens how the numbers are worked out */
 .power .estimate { margin-left: auto; align-self: center; }
 .tape-btn { appearance: none; background: none; border: 0; padding: 2px; margin: 0; cursor: pointer; line-height: 0; }
@@ -269,7 +275,7 @@ body { display: flex; flex-direction: column; margin: 0; background: transparent
 .tape-btn[aria-expanded="true"] .sk-label { filter: brightness(0.9); }
 
 /* ---- Toolkit drawer (dark linen, drops from the top) ---- */
-.drawer-scrim { position: fixed; top: 0; left: 0; right: 0; bottom: -160px; z-index: 60; background: rgba(20, 22, 26, 0.38); }
+.drawer-scrim { position: fixed; top: 0; left: 0; right: 0; bottom: calc(-160px - var(--vp-gap, 0px)); z-index: 60; background: rgba(20, 22, 26, 0.38); }
 .drawer {
   position: fixed; z-index: 61; left: 0; right: 0; top: 0;
   max-height: min(92vh, 900px); display: flex; flex-direction: column; outline: none;
