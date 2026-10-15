@@ -1,0 +1,193 @@
+/* Skeuo 2012 — generated from tokens.json */
+:root, [data-theme="light"] {
+  --sk-linen: #fbf9f4; /* Page background (`Linen`). The woven texture painted over it is an opaque image in `components/bundle.css` (`.sk-linen`), so this value shows only where there is no texture: the cover ground and layout glue that uses `var(--sk-linen)`. The texture averages #F2F1ED. `sk-ink`, `sk-ios-header` and `sk-blue-ink` text read on it. */
+  --sk-linen-dark: #3b3e43; /* Dark linen (`Linen dark`, the iOS 6 Notification Center look); text on it is set light (#E9EBEE, 8.9:1). */
+  --sk-card-hi: #ffffff; /* Bright card stock, top of its gradient. No component uses it since the Masthead moved to paper; kept for layout glue. */
+  --sk-card-lo: #f3f1eb; /* Card stock, bottom of its gradient. No component uses it since the Masthead moved to paper; kept for layout glue. */
+  --sk-card-edge: #d9d5cc; /* The Masthead's 1px bottom edge. */
+  --sk-lime-hi: #e4fa9e; /* Top of glossy lime (lime `Pill`, `Badge`). */
+  --sk-lime: #a8e030; /* The lime highlight: the glowing bar under the Masthead and SectionPage titles, `GlowRule`, the Badge body, the lime Pill. Two or three touches per screen at most; never text. */
+  --sk-lime-lo: #7dba12; /* Bottom of glossy lime; the Masthead and SectionPage numerals (2.4:1 on `sk-paper`: a decorative numeral below the 3:1 floor, kept as the source has it). */
+  --sk-lime-ink: #2f4a06; /* Text on lime: Badge numbers and the lime Pill label (6.4:1 on `sk-lime`, 8.8:1 on `sk-lime-hi`). */
+  --sk-lime-glow: rgba(160, 228, 40, 0.55); /* Halos and glowing rules (box- and text-shadows), never a fill. */
+  --sk-lime-wash: rgba(190, 240, 80, 0.32); /* Large soft glow behind content (the Masthead and the SectionPage). */
+  --sk-blue-hi: #7fa8e6; /* Top of glossy blue; the focus outline on Pill, Switch and Segmented (2.4:1 on white, 2.1:1 on the linen texture: below the 3:1 floor for focus rings, kept as the source has it). */
+  --sk-blue: #3a72cc; /* Glossy blue: the primary Pill and the selected Segmented segment (white label 4.7:1). */
+  --sk-blue-lo: #2a59a6; /* Bottom of glossy blue; the Switch track when on. */
+  --sk-blue-ink: #2d62b8; /* Blue text: Kicker labels, links, small accents. 5.9:1 on `sk-paper` and white, 5.2:1 on `sk-card-lo`, 5.2:1 on the linen texture. */
+  --sk-ink: #1f1f1f; /* Body text and titles on linen, `sk-paper` and card stock (13.9:1 or more). */
+  --sk-ink-soft: #333333; /* Notepad body and SectionPage lede text on `sk-paper` (12.2:1 or more). */
+  --sk-muted: #686868; /* Step times and other secondary notes: 5.6:1 on `sk-paper`, 5.4:1 on `sk-paper-lo`, 4.9:1 on the linen texture (4.7:1 on its darker threads). */
+  --sk-ios-header: #4c566c; /* Slate headings: `Heading`, Group titles, Segmented labels. 6.5:1 on the linen texture, 7.3:1 on `sk-paper`. */
+  --sk-ios-detail: #385487; /* GroupRow values on the white grouped table (7.5:1). */
+  --sk-ios-border: #bdbdbd; /* Grouped-table outline (1.9:1 on white; the box also reads by its shape and highlight). */
+  --sk-ios-separator: #e6e6e6; /* Hairline between GroupRows. */
+  --sk-paper: #fffffd; /* Paper, Notepad, Masthead and SectionPage: top of the sheet gradient. */
+  --sk-paper-lo: #fcfbf5; /* Bottom of the sheet gradient. */
+  --sk-rule-color: #c4dbee; /* The Notepad's blue rules. */
+  --sk-margin-color: #efb0b0; /* The Notepad's red double margin. */
+  --sk-badge-hi: var(--sk-lime-hi); /* Badge gloss, top: an alias of `sk-lime-hi`. */
+  --sk-badge: var(--sk-lime); /* Badge body: an alias of `sk-lime`. */
+  --sk-badge-lo: var(--sk-lime-lo); /* Badge gloss, bottom: an alias of `sk-lime-lo`. */
+  --sk-ribbon-1: #1f4f9e; /* Satin ribbon, left edge of its gradient. */
+  --sk-ribbon-2: #5c8fe0; /* Satin ribbon, the highlight at 35%. */
+  --sk-ribbon-3: #3a72cc; /* Satin ribbon, at 70%. */
+  --sk-ribbon-4: #1a4489; /* Satin ribbon, right edge. */
+  --sk-note-yellow-top: #fff9b8; /* Yellow sticky note (the default), top of its paper. */
+  --sk-note-yellow-bottom: #fdec80; /* Yellow sticky note, bottom. */
+  --sk-note-pink-top: #ffdde9; /* Pink sticky note, top. */
+  --sk-note-pink-bottom: #fac3d7; /* Pink sticky note, bottom. */
+  --sk-note-blue-top: #e2f3ff; /* Blue sticky note, top. */
+  --sk-note-blue-bottom: #c6e3f8; /* Blue sticky note, bottom. */
+  --sk-pen-blue: #253563; /* Handwriting on yellow and blue sticky notes (8.9:1 or more). */
+  --sk-pen-plum: #5a2340; /* Handwriting on pink sticky notes (7.9:1 or more). */
+  --sk-shadow-paper: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.10); /* Paper, Notepad and SectionPage sheets. */
+  --sk-shadow-raised: 0 1px 2px rgba(0, 0, 0, 0.25); /* Raised plastic: Pills, under their inset highlight. */
+  --sk-emboss-light: 0 1px 0 rgba(255, 255, 255, 0.9); /* A text-shadow: dark text on light material (titles, headings, kickers). */
+  --sk-emboss-dark: 0 1px 1px rgba(0, 0, 0, 0.7); /* A text-shadow: light text on dark linen. */
+}
+:root {
+  --sk-rule: 22px; /* Notepad line pitch = body line height. Keep vertical gaps inside a Notepad in multiples of it. */
+  --sk-notepad-margin: 40px; /* The Notepad's left margin, out to the red double line. The Notepad also declares it on itself, so an edit here does not reach the Notepad. */
+  --font-ui: "Skeuo Neue", "Helvetica Neue", "Neue Haas Grotesk Display Pro", "Neue Haas Grotesk Text Pro", Helvetica, Arial, sans-serif;
+  --font-display: "Skeuo Neue", "Helvetica Neue", "Neue Haas Grotesk Display Pro", "Neue Haas Grotesk Text Pro", Helvetica, Arial, sans-serif;
+  --font-condensed: "Skeuo Neue Condensed", "Helvetica Neue", "Neue Haas Grotesk Display Pro", "Neue Haas Grotesk Text Pro", Helvetica, Arial, sans-serif;
+  --font-hand: "Nothing You Could Do", cursive;
+  --text-section-number: 200 140px/0.9 var(--font-display); /* The SectionPage numeral, in `sk-lime-lo` with a lime glow. */
+  --text-masthead-number: 200 112px/0.9 var(--font-display); /* The Masthead numeral, in `sk-lime-lo` with a lime glow. */
+  --text-title: 300 46px/1.08 var(--font-display); /* `Title`: one per page, usually in the Masthead. */
+  --text-section-title: 300 44px/1.1 var(--font-display); /* The SectionPage title. */
+  --text-heading: 300 26px/1.2 var(--font-display); /* `Heading`, in `sk-ios-header` with the white emboss. */
+  --text-notepad-title: 300 24px/22px var(--font-display); /* The Notepad title, sitting in the head above the first rule. */
+  --text-subtitle: italic 400 17px/1.3 var(--font-ui); /* `Subtitle`: the line of context under a Title. */
+  --text-group-title: 700 15px/1.2 var(--font-ui); /* The embossed Group title on linen. */
+  --text-lede: 400 15px/1.55 var(--font-ui); /* The SectionPage lede, in `sk-ink-soft`. */
+  --text-row: 700 14px/1.3 var(--font-ui); /* GroupRow labels (values drop to 400 in `sk-ios-detail`). */
+  --text-body: 400 14px/22px var(--font-ui); /* Notepad text: the line height is `sk-rule`, so every line sits on a rule. */
+  --text-pill: 700 12px/1 var(--font-ui); /* Pill, Badge and Segmented labels. */
+  --text-step-time: italic 400 12px/22px var(--font-ui); /* The Step time after its title, in `sk-muted`. */
+  --text-kicker: 700 11px/1 var(--font-ui); /* `Kicker`: set in capitals, in `sk-blue-ink`. */
+  --text-sticky-title: 400 26px/1.2 var(--font-hand); /* The underlined Sticky title. */
+  --text-sticky: 400 17px/1.45 var(--font-hand); /* Sticky note text, in `sk-pen-blue` or `sk-pen-plum`. */
+}
+.section-number {
+  font-family: var(--font-display);
+  font-size: 140px;
+  line-height: 0.9;
+  font-weight: 200;
+  letter-spacing: -2px;
+}
+.masthead-number {
+  font-family: var(--font-display);
+  font-size: 112px;
+  line-height: 0.9;
+  font-weight: 200;
+  letter-spacing: -2px;
+}
+.title {
+  font-family: var(--font-display);
+  font-size: 46px;
+  line-height: 1.08;
+  font-weight: 300;
+  letter-spacing: -0.3px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 44px;
+  line-height: 1.1;
+  font-weight: 300;
+  letter-spacing: -0.3px;
+}
+.heading {
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+.notepad-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 22px;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+.subtitle {
+  font-family: var(--font-ui);
+  font-size: 17px;
+  line-height: 1.3;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-style: italic;
+}
+.group-title {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.lede {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.row {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.body {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.pill {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.step-time {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-style: italic;
+}
+.kicker {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+}
+.sticky-title {
+  font-family: var(--font-hand);
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.sticky {
+  font-family: var(--font-hand);
+  font-size: 17px;
+  line-height: 1.45;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+@font-face {
+  font-family: "Nothing You Could Do";
+  src: url("fonts/NothingYouCouldDo-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
