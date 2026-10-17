@@ -207,8 +207,8 @@ var Skeuo = (() => {
   // dist/components/Notepad.js
   init_define_import_meta_env();
   var import_jsx_runtime9 = __toESM(require_react_shim(), 1);
-  function Notepad({ title, className, children, ...rest }) {
-    return (0, import_jsx_runtime9.jsxs)("section", { className: cx("sk-notepad", className), ...rest, children: [title != null && (0, import_jsx_runtime9.jsx)("h2", { className: "sk-notepad__title", children: title }), (0, import_jsx_runtime9.jsx)("div", { className: "sk-notepad__body", children })] });
+  function Notepad({ title, paper, className, children, ...rest }) {
+    return (0, import_jsx_runtime9.jsxs)("section", { className: cx("sk-notepad", className), "data-paper": paper || void 0, ...rest, children: [title != null && (0, import_jsx_runtime9.jsx)("h2", { className: "sk-notepad__title", children: title }), (0, import_jsx_runtime9.jsx)("div", { className: "sk-notepad__body", children })] });
   }
 
   // dist/components/Steps.js
@@ -378,7 +378,7 @@ var Skeuo = (() => {
   function skIsLight(c) { return c === SK_HL || c === SK_CHART[2]; }
   function skNum(v, locale, digits) {
     if (typeof v !== "number") return v;
-    const loc = locale || (typeof document !== "undefined" && document.documentElement.lang) || "nl-NL";
+    const loc = locale || (typeof document !== "undefined" && document.documentElement.lang) || "en";
     try { return v.toLocaleString(loc, digits != null ? { minimumFractionDigits: digits, maximumFractionDigits: digits } : void 0); } catch (e) { return String(v); }
   }
   function skList(v) { if (typeof v === "string") { try { return JSON.parse(v); } catch (e) { return []; } } return Array.isArray(v) ? v : []; }
